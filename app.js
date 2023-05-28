@@ -11,7 +11,7 @@ const NotFoundError = require('./errors/notfound');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const urlList = ['http://mesto.user87.nomoredomains.monster', 'https://mesto.user87.nomoredomains.monster'];
+const urlList = ['http://movies.user87.nomoredomains.rocks/', 'https:///movies.user87.nomoredomains.rocks/'];
 
 const { PORT = 3000 } = process.env;
 
