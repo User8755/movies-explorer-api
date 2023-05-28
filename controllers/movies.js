@@ -12,7 +12,7 @@ module.exports.getMovies = (req, res, next) => {
 
 // удаляет сохранённый фильм по id
 module.exports.delMoviesById = (req, res, next) => {
-  Movies.findById(req.params.moviesId)
+  Movies.findById(req.params.cardId)
     .then((reqMovies) => {
       if (!reqMovies) {
         throw new NotFoundError('Фильм с данным Id не найдена');
@@ -40,11 +40,14 @@ module.exports.createMovies = (req, res, next) => {
     duration,
     year,
     description,
-    image, trailer,
+    image,
+    trailer,
     nameRU,
     nameEN,
     thumbnail,
     movieId,
+    trailerLink,
+    owner,
   } = req.body;
   Movies.create({
     country,
@@ -58,6 +61,8 @@ module.exports.createMovies = (req, res, next) => {
     nameEN,
     thumbnail,
     movieId,
+    trailerLink,
+    owner,
   })
     .then((card) => res.send(card))
     .catch((err) => {
