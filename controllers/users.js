@@ -62,7 +62,9 @@ module.exports.updateProfile = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.code === 11000) {
+        next(new ConflictError('Переданы некорректные данные, информация не обновлена'));
+      } else if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные, информация не обновлена'));
       } else {
         next(err);

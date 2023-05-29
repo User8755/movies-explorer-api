@@ -5,8 +5,14 @@ const ForbiddenError = require('../errors/forbidden');
 
 // Вовзращает лайкнуте фильмы, нужно скорей всего передалить
 module.exports.getMovies = (req, res, next) => {
-  Movies.find({}).sort({ createdAt: -1 })
-    .then((movies) => res.send(movies))
+  Movies.find({ owner: { $in: [req.user._id] } })
+    .then((movies) => {
+      if (movies.length === 0) {
+        res.send({ message: 'У вас нет сохраненных фильмов' });
+      } else {
+        res.send(movies);
+      }
+    })
     .catch(next);
 };
 
@@ -18,9 +24,9 @@ module.exports.delMoviesById = (req, res, next) => {
         throw new NotFoundError('Фильм с данным Id не найдена');
       }
       if (reqMovies.owner.toString() === req.user._id) {
-        Movies.findByIdAndRemove(req.params.moviesId)
-          .then((movies) => {
-            res.send({ data: movies });
+        Movies.findByIdAndRemove(req.params.cardId)
+          .then(() => {
+            res.send({ message: 'Карточка фильма удалена' });
           })
           .catch((err) => next(err));
       } else {
@@ -47,7 +53,6 @@ module.exports.createMovies = (req, res, next) => {
     thumbnail,
     movieId,
     trailerLink,
-    owner,
   } = req.body;
   Movies.create({
     country,
@@ -62,7 +67,7 @@ module.exports.createMovies = (req, res, next) => {
     thumbnail,
     movieId,
     trailerLink,
-    owner,
+    owner: req.user._id,
   })
     .then((card) => res.send(card))
     .catch((err) => {

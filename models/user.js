@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      default: 'Тайлер Дерден',
+      required: true,
       minlength: 2,
       maxlength: 30,
     },

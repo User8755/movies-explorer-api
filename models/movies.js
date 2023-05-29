@@ -23,7 +23,7 @@ const moviesSchema = new mongoose.Schema({
     require: true,
   },
   year: {
-    type: Number,
+    type: String,
     require: true,
   },
   description: {
