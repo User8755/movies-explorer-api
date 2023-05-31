@@ -13,7 +13,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const urlList = ['http://movies.user87.nomoredomains.rocks/', 'https:///movies.user87.nomoredomains.rocks/'];
 
-const { PORT, MONGODB } = process.env;
+const { PORT = 3000, MONGODB = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 
 mongoose.connect(MONGODB);
 

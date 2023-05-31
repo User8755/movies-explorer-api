@@ -63,7 +63,7 @@ module.exports.updateProfile = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(new ConflictError('Переданы некорректные данные, информация не обновлена'));
+        next(new ConflictError('Пользователь с данным email уже существует'));
       } else if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные, информация не обновлена'));
       } else {
