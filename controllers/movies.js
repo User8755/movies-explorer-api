@@ -26,7 +26,7 @@ module.exports.delMoviesById = (req, res, next) => {
       if (reqMovies.owner.toString() === req.user._id) {
         Movies.findByIdAndRemove(req.params.cardId)
           .then((data) => {
-            res.send({ data });
+            res.send([data]);
           })
           .catch((err) => next(err));
       } else {
