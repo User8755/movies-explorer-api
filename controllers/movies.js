@@ -25,8 +25,8 @@ module.exports.delMoviesById = (req, res, next) => {
       }
       if (reqMovies.owner.toString() === req.user._id) {
         Movies.findByIdAndRemove(req.params.cardId)
-          .then(() => {
-            res.send({ message: 'Карточка фильма удалена' });
+          .then((data) => {
+            res.send(data);
           })
           .catch((err) => next(err));
       } else {
