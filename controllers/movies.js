@@ -7,11 +7,12 @@ const ForbiddenError = require('../errors/forbidden');
 module.exports.getMovies = (req, res, next) => {
   Movies.find({ owner: { $in: [req.user._id] } })
     .then((movies) => {
-      if (movies.length === 0) {
-        res.send({ message: 'У вас нет сохраненных фильмов' });
-      } else {
-        res.send(movies);
-      }
+      // if (movies.length === 0) {
+      //   res.send({ message: 'У вас нет сохраненных фильмов' });
+      // } else {
+      //   res.send(movies);
+      // }
+      res.send(movies);
     })
     .catch(next);
 };
